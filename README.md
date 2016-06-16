@@ -2,6 +2,8 @@
 
 This is a game of life simulation based on [Conways Game Of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) developed in [golang](https://golang.org/). 
 
+<iframe src='https://gfycat.com/ifr/CaringDimHornet' frameborder='0' scrolling='no' width='640' height='592.5925925925926' allowfullscreen></iframe>
+
 ## To Install
 
 `go get github.com/poixen/go_game_of_life`
