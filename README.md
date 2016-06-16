@@ -2,7 +2,7 @@
 
 This is a game of life simulation based on [Conways Game Of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) developed in [golang](https://golang.org/). 
 
-![Screencapture GIF](https://gfycat.com/ifr/CaringDimHornet))
+![Screencapture GIF](https://thumbs.gfycat.com/CompassionateFlusteredBeardedcollie-size_restricted.gif)
 
 ## To Install
 
