@@ -10,11 +10,13 @@ import (
 type Board struct {
 	mu sync.Mutex
 	board map[Point]*Cell
+	width int
+	height int
 }
 
 // returns a pointer to a new board
-func NewBoard() *Board {
-	return &Board{sync.Mutex{}, map[Point]*Cell{}}
+func NewBoard(w, h int) *Board {
+	return &Board{sync.Mutex{}, map[Point]*Cell{}, w, h}
 }
 
 // returns the total cells alive
@@ -51,7 +53,7 @@ func (b *Board) Transfer(next *Board, cp <-chan Point, w *sync.WaitGroup) {
 
 func (b *Board) AliveNeighbors(p *Point) int {
 	count := 0
-	for _, pv := range p.Neighbors() {
+	for _, pv := range p.Neighbors(b.width, b.height) {
 		count+= b.GetCell(pv).Value()
 	}
 	return count
@@ -69,7 +71,7 @@ func (b *Board) GetCell(p *Point) *Cell {
 
 func (b *Board) Next() *Board {
 	// return pointer to new board
-	next := NewBoard()
+	next := NewBoard(b.width, b.height)
 
 	// wait for 4 go routines to finish
 	w := &sync.WaitGroup{}
@@ -100,7 +102,7 @@ func pointsGenerator(b *Board,  w *sync.WaitGroup) <-chan Point {
 		for p := range (b.board) {
 			// first process the current point
 			pointsGenerator <- p
-			for _, n := range p.Neighbors() {
+			for _, n := range p.Neighbors(b.width, b.height) {
 				// then update the neighbors based on the current point
 				pointsGenerator <- *n
 			}

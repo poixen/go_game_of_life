@@ -18,7 +18,7 @@ var START_ALIVE int = (BOARD_WIDTH * BOARD_HEIGHT) / 2
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	for {
-		board := components.NewBoard()
+		board := components.NewBoard(BOARD_WIDTH, BOARD_HEIGHT)
 
 		// set {START_ALIVE} random Cells to be alive
 		for i := 0; i < START_ALIVE; i++ {
