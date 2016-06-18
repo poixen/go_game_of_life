@@ -6,16 +6,19 @@ import (
 	"time"
 	"fmt"
 	"strconv"
+	"os"
 )
 
-var GAME_LENGTH int = 500
-var GAME_LENGTH_STR = strconv.Itoa(GAME_LENGTH)
 var BOARD_WIDTH int = 60
 var BOARD_HEIGHT int = 20
-var BOARD_TOTAL_STR = strconv.Itoa(BOARD_WIDTH * BOARD_HEIGHT)
-var START_ALIVE int = (BOARD_WIDTH * BOARD_HEIGHT) / 2
 
 func main() {
+	setBoardDimensions()
+	var GAME_LENGTH int = 500
+	var GAME_LENGTH_STR = strconv.Itoa(GAME_LENGTH)
+	var START_ALIVE int = (BOARD_WIDTH * BOARD_HEIGHT) / 2
+	var BOARD_TOTAL_STR = strconv.Itoa(BOARD_WIDTH * BOARD_HEIGHT)
+
 	rand.Seed(time.Now().UTC().UnixNano())
 	for {
 		board := components.NewBoard(BOARD_WIDTH, BOARD_HEIGHT)
@@ -36,5 +39,17 @@ func main() {
 			time.Sleep(100 * time.Millisecond)
 		}
 	}
+}
 
+func setBoardDimensions() {
+	if len(os.Args) != 3 {
+		return
+	}
+
+	if w, err := strconv.Atoi(os.Args[1]); err == nil {
+		BOARD_WIDTH = w
+	}
+	if h, err := strconv.Atoi(os.Args[2]); err == nil {
+		BOARD_HEIGHT = h
+	}
 }

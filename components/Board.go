@@ -75,19 +75,14 @@ func (b *Board) Next() *Board {
 
 	// wait for 4 go routines to finish
 	w := &sync.WaitGroup{}
-	w.Add(9)
+	w.Add(b.height + 1)
 
 	pointsChannel := pointsGenerator(b, w)
 
 	// 8 tasks
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
-	go b.Transfer(next, pointsChannel, w)
+	for i :=0; i<b.height;i++ {
+		go b.Transfer(next, pointsChannel, w)
+	}
 
 	// blocks until count is at 0
 	w.Wait()
@@ -122,7 +117,7 @@ func (b *Board) Print(w, h int) {
 			if b.GetCell(NewPoint(x, y)).IsAlive() {
 				buffer.WriteString("X")
 			} else {
-				buffer.WriteString(".")
+				buffer.WriteString("-")
 			}
 		}
 		buffer.WriteString("\n")
