@@ -115,9 +115,9 @@ func (b *Board) Print(w, h int) {
 	for y := 0; y < h; y++ {
 		for x := 0; x < w; x++ {
 			if b.GetCell(NewPoint(x, y)).IsAlive() {
-				buffer.WriteString("X")
+				buffer.WriteString("O")
 			} else {
-				buffer.WriteString("-")
+				buffer.WriteString(" ")
 			}
 		}
 		buffer.WriteString("\n")
